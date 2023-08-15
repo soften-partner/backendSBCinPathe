@@ -38,7 +38,7 @@ import javax.servlet.http.HttpServletResponse;
 @Service
 @RequiredArgsConstructor
 public class AuthenticationService {
-	 private final RoleRepository roleRepository;
+  private final RoleRepository roleRepository;
   private final UserRepository repository;
   private final TokenRepository tokenRepository;
   private final PasswordEncoder passwordEncoder;
@@ -67,28 +67,24 @@ public class AuthenticationService {
 	  
 
 	  User  user = User.builder()
-        .fullname(request.getFullname())
-    
-        .email(request.getEmail())
-        .password(passwordEncoder.encode(request.getPassword()))
-        .build();
-	  user.setRoles(roles);
+			  		   .fullname(request.getFullname())
+			  		   .email(request.getEmail())
+			  		   .password(passwordEncoder.encode(request.getPassword()))
+			  		   .build();
+	user.setRoles(roles);
     var savedUser = repository.save(user);
     var jwtToken = jwtService.generateToken(savedUser);
     var refreshToken = jwtService.generateRefreshToken(user);
     saveUserToken(savedUser, jwtToken);
     return AuthenticationResponse.builder()
-        .accessToken(jwtToken)
-            .refreshToken(refreshToken)
-        .build();
+    							 .accessToken(jwtToken)
+    							 .refreshToken(refreshToken)
+    							 .build();
   }
 
   public AuthenticationResponse authenticate(AuthenticationRequest request) {
     authenticationManager.authenticate(
-        new UsernamePasswordAuthenticationToken(
-            request.getEmail(),
-            request.getPassword()
-        ));
+        new UsernamePasswordAuthenticationToken(request.getEmail(),request.getPassword()));
     var user = repository.findByEmail(request.getEmail())
         .orElseThrow();
     var jwtToken = jwtService.generateToken(user);
@@ -96,19 +92,19 @@ public class AuthenticationService {
     revokeAllUserTokens(user);
     saveUserToken(user, jwtToken);
     return AuthenticationResponse.builder()
-        .accessToken(jwtToken)
-            .refreshToken(refreshToken)
-        .build();
+    							 .accessToken(jwtToken)
+    							 .refreshToken(refreshToken)
+    							 .build();
   }
 
   private void saveUserToken(User user, String jwtToken) {
     var token = Token.builder()
-        .user(user)
-        .token(jwtToken)
-        .tokenType(TokenType.BEARER)
-        .expired(false)
-        .revoked(false)
-        .build();
+			        .user(user)
+			        .token(jwtToken)
+			        .tokenType(TokenType.BEARER)
+			        .expired(false)
+			        .revoked(false)
+			        .build();
     tokenRepository.save(token);
   }
 

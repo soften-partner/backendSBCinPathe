@@ -25,7 +25,8 @@ public class Role {
     @Column(unique = true) // une seule role
     private String name;
 	/*
-	 * @ManyToMany(fetch = FetchType.EAGER) private Set<User> users=new HashSet<>();
+	 * @ManyToMany(fetch = FetchType.EAGER) 
+	 * private Set<User> users=new HashSet<>();
 	 */
     
 

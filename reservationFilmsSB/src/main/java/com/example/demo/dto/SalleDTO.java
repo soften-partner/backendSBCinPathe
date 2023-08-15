@@ -29,16 +29,16 @@ private  Long idSalle ;
   private String nomSalle;
   
   public static Salle toEntity (SalleDTO dto){ 
-	  return Salle.builder()
-  .nbrPlaces(dto.getNbrPlaces())
-  .nomSalle(dto.getNomSalle()) 
-  .build(); }
+	  	return Salle.builder()
+			  		.nbrPlaces(dto.getNbrPlaces())
+			  		.nomSalle(dto.getNomSalle()) 
+			  		.build(); }
   
   public static SalleDTO fromEntity (Salle salle){
-	  return SalleDTO.builder()
-  .idSalle(salle.getIdSalle()) 
-  .nbrPlaces(salle.getNbrPlaces())
-  .nomSalle(salle.getNomSalle()) 
-  .build(); } }
+	  	return SalleDTO.builder()
+			  		   .idSalle(salle.getIdSalle()) 
+			  		   .nbrPlaces(salle.getNbrPlaces())
+			  		   .nomSalle(salle.getNomSalle()) 
+			  		   .build(); } }
  
  

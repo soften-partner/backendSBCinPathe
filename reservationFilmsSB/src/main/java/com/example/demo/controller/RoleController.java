@@ -23,9 +23,12 @@ public class RoleController {
 	  return roleRepository.findAll() ;
 	  
   }
+  
+
   @PostMapping("/saveroles")
   public Role saverole(@RequestBody Role role){
 	
+	  System.out.println("role:::::"+role.getName());
 	  return roleRepository.save(role) ;
   }
   
